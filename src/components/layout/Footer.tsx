@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { ArrowUpRight, Github, Linkedin } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
 
 export default function Footer() {
   return (
@@ -37,7 +38,7 @@ export default function Footer() {
               aria-label="GitHub"
               className="text-gray-400 transition hover:text-white"
             >
-              <Github size={21} />
+              <FaGithub size={21} />
             </Link>
 
             <Link
@@ -47,7 +48,7 @@ export default function Footer() {
               aria-label="LinkedIn"
               className="text-gray-400 transition hover:text-white"
             >
-              <Linkedin size={21} />
+              <FaLinkedin size={21} />
             </Link>
           </div>
         </div>
