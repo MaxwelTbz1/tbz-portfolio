@@ -148,3 +148,138 @@ button {
     animation-duration: 0.01ms !important;
   }
 }
+
+/* =====================================
+   THEME SYSTEM — PORTFOLIO REGIS
+===================================== */
+
+:root {
+  color-scheme: dark;
+
+  --background: #080a0f;
+  --surface: #0c0f15;
+  --surface-raised: #10141c;
+  --foreground: #f3f5f8;
+  --muted: #9299a5;
+  --border: rgba(255, 255, 255, 0.1);
+  --accent: #3987ff;
+  --grid-line: rgba(255, 255, 255, 0.025);
+}
+
+html.light {
+  color-scheme: light;
+
+  --background: #f5f6f8;
+  --surface: #ffffff;
+  --surface-raised: #edf0f5;
+  --foreground: #111827;
+  --muted: #626b79;
+  --border: rgba(17, 24, 39, 0.12);
+  --accent: #1765d1;
+  --grid-line: rgba(17, 24, 39, 0.035);
+}
+
+/* Base */
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+/* Light theme: existing component backgrounds */
+
+html.light [class*="bg-[#080a0f]"],
+html.light [class*="bg-[#0c0f15]"] {
+  background-color: var(--background) !important;
+}
+
+html.light [class*="bg-[#10141c]"],
+html.light [class*="bg-[#101827]"] {
+  background-color: var(--surface) !important;
+}
+
+html.light header {
+  background-color: rgba(255, 255, 255, 0.88);
+  border-color: var(--border);
+}
+
+/* Typography */
+
+html.light [class*="text-white"],
+html.light [class*="text-gray-200"],
+html.light [class*="text-gray-300"] {
+  color: var(--foreground) !important;
+}
+
+html.light [class*="text-gray-400"],
+html.light [class*="text-gray-500"],
+html.light [class*="text-gray-600"] {
+  color: var(--muted) !important;
+}
+
+/* Borders */
+
+html.light [class*="border-white"] {
+  border-color: var(--border) !important;
+}
+
+/* Navigation */
+
+html.light .nav-link {
+  color: var(--muted);
+}
+
+html.light .nav-link:hover {
+  color: var(--foreground);
+}
+
+/* Project cards */
+
+html.light .project-card {
+  background-color: var(--surface);
+  border-color: var(--border);
+}
+
+html.light .project-card:hover {
+  border-color: var(--accent);
+}
+
+/* Editorial grid */
+
+html.light .grid-lines {
+  background-image: linear-gradient(
+    to right,
+    var(--grid-line) 1px,
+    transparent 1px
+  );
+}
+
+/* Outline typography */
+
+html.light .outline-text {
+  -webkit-text-stroke: 1px rgba(17, 24, 39, 0.45);
+}
+
+/* Mobile menu */
+
+html.light header details nav {
+  background-color: var(--surface);
+  border-color: var(--border);
+}
+
+/* Selection */
+
+html.light ::selection {
+  background: var(--accent);
+  color: #ffffff;
+}
+
+/* Preserve white text on blue buttons */
+
+html.light [class*="bg-[#3987ff]"] {
+  color: #ffffff !important;
+}
+
+html.light [class*="bg-[#3987ff]"] [class*="text-white"] {
+  color: #ffffff !important;
+}

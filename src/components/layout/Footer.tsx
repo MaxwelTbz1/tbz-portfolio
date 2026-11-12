@@ -2,6 +2,8 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import SocialLinks from "@/components/ui/SocialLinks";
 
+const CURRENT_YEAR = 2026;
+
 export default function Footer() {
   return (
     <footer id="contact" className="border-t border-white/10 bg-[#0c0f15]">
@@ -46,9 +48,9 @@ export default function Footer() {
         {/* Footer bottom */}
         <div className="mt-20 flex flex-col justify-between gap-4 border-t border-white/10 pt-6 text-[10px] uppercase tracking-widest text-gray-600 sm:flex-row md:mt-24">
           <p>
-            © {new Date().getFullYear()} Régis TCHIBOZO. Tous droits réservés.
+            {/* © {new Date().getFullYear()} Régis TCHIBOZO. Tous droits réservés. */}
+            © {CURRENT_YEAR} Régis TCHIBOZO. Tous droits réservés.
           </p>
-
           <p>Designed with intention. Built with code.</p>
         </div>
       </div>
