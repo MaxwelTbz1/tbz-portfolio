@@ -1,5 +1,6 @@
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import Experience from "@/components/sections/Experience";
 
 import Hero from "@/components/sections/Hero";
 import SelectedWork from "@/components/sections/SelectedWork";
@@ -14,6 +15,7 @@ export default function HomePage() {
       <main>
         <Hero />
         <AboutPreview />
+        <Experience />
         <SelectedWork />
         <Expertise />
       </main>

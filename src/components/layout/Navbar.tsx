@@ -1,8 +1,11 @@
 import Link from "next/link";
 import { ArrowUpRight, Menu } from "lucide-react";
+import CVButton from "@/components/ui/CVButton";
+import { ThemeProvider } from "next-themes";
 
 const navigation = [
   { label: "À propos", href: "#about" },
+  { label: "Expérience", href: "#experience" },
   { label: "Projets", href: "#projects" },
   { label: "Expertise", href: "#expertise" },
 ];
@@ -55,6 +58,12 @@ export default function Navbar() {
               </Link>
             </nav>
           </details>
+
+          <div className="flex items-center gap-3">
+            {/* <ThemeToggle /> */}
+            {/* <ThemeProvider/> */}
+            <CVButton />
+          </div>
         </div>
       </div>
     </header>

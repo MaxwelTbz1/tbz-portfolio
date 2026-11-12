@@ -1,12 +1,14 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
+import SocialLinks from "@/components/ui/SocialLinks";
 
 export default function Footer() {
   return (
     <footer id="contact" className="border-t border-white/10 bg-[#0c0f15]">
-      <div className="container-main py-20">
-        <div className="grid gap-10 md:grid-cols-[1fr_auto] md:items-end">
+      <div className="container-main py-16 md:py-20">
+        {/* Main content */}
+        <div className="grid gap-12 md:grid-cols-[1fr_auto] md:items-end">
+          {/* Contact section */}
           <div>
             <p className="eyebrow">LET'S CONNECT</p>
 
@@ -18,43 +20,35 @@ export default function Footer() {
 
             <p className="mt-6 max-w-md text-sm leading-7 text-gray-400">
               Vous avez un projet, une opportunité ou souhaitez simplement
-              échanger autour du développement ? Je serais ravi d'en discuter.
+              échanger autour du développement ? Je serais ravi d'en discuter
+              avec vous.
             </p>
 
             <a
               href="mailto:TON_EMAIL_ICI"
-              className="mt-8 inline-flex items-center gap-3 border border-[#3987ff] px-6 py-4 text-xs font-medium text-white transition hover:bg-[#3987ff]"
+              className="mt-8 inline-flex items-center gap-3 border border-[#3987ff] px-6 py-4 text-xs font-medium text-white transition-all duration-300 hover:bg-[#3987ff]"
             >
               Envoyer un message
               <ArrowUpRight size={16} />
             </a>
           </div>
 
-          <div className="flex gap-5 md:pb-2">
-            <Link
-              href="https://github.com/MaxwelTbz1"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="GitHub"
-              className="text-gray-400 transition hover:text-white"
-            >
-              <FaGithub size={21} />
-            </Link>
+          {/* Social links */}
+          <div className="flex flex-col gap-5 md:pb-2">
+            <p className="text-[10px] uppercase tracking-[0.18em] text-gray-500">
+              Retrouvez-moi sur
+            </p>
 
-            <Link
-              href="https://www.linkedin.com/"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="LinkedIn"
-              className="text-gray-400 transition hover:text-white"
-            >
-              <FaLinkedin size={21} />
-            </Link>
+            <SocialLinks />
           </div>
         </div>
 
-        <div className="mt-24 flex flex-col justify-between gap-4 border-t border-white/10 pt-6 text-[10px] uppercase tracking-widest text-gray-600 sm:flex-row">
-          <p>© {new Date().getFullYear()} Régis TCHIBOZO.</p>
+        {/* Footer bottom */}
+        <div className="mt-20 flex flex-col justify-between gap-4 border-t border-white/10 pt-6 text-[10px] uppercase tracking-widest text-gray-600 sm:flex-row md:mt-24">
+          <p>
+            © {new Date().getFullYear()} Régis TCHIBOZO. Tous droits réservés.
+          </p>
+
           <p>Designed with intention. Built with code.</p>
         </div>
       </div>
