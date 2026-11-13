@@ -1,20 +1,51 @@
 @import "tailwindcss";
 
+/* =========================================
+   PORTFOLIO REGIS — DESIGN SYSTEM
+========================================= */
+
 :root {
-  --background: #080a0f;
-  --surface: #10141c;
+  color-scheme: dark;
+
+  --background: #080a0e;
+  --surface: #0e1219;
+  --surface-raised: #141a23;
+
   --foreground: #f3f5f8;
-  --muted: #9299a5;
+  --muted: #929ba9;
+  --subtle: #626d7c;
+
   --accent: #3987ff;
-  --border: rgba(255, 255, 255, 0.1);
+  --accent-soft: rgba(57, 135, 255, 0.12);
+
+  --border: rgba(255, 255, 255, 0.09);
+  --grid-line: rgba(255, 255, 255, 0.018);
+
+  --container: 1180px;
+  --header-height: 76px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+html.light {
+  color-scheme: light;
+
+  --background: #f5f6f8;
+  --surface: #ffffff;
+  --surface-raised: #edf0f5;
+
+  --foreground: #111827;
+  --muted: #626b79;
+  --subtle: #87909e;
+
+  --accent: #1765d1;
+  --accent-soft: rgba(23, 101, 209, 0.09);
+
+  --border: rgba(17, 24, 39, 0.1);
+  --grid-line: rgba(17, 24, 39, 0.025);
 }
+
+/* =========================================
+   RESET & BASE
+========================================= */
 
 * {
   box-sizing: border-box;
@@ -26,167 +57,206 @@ html {
 }
 
 body {
+  margin: 0;
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+
+  font-family: var(--font-geist-sans), Arial, sans-serif;
+
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  transition:
+    background-color 250ms ease,
+    color 250ms ease;
 }
 
 ::selection {
   background: var(--accent);
-  color: white;
+  color: #ffffff;
 }
 
 a {
-  text-decoration: none;
   color: inherit;
+  text-decoration: none;
 }
 
 button {
   font: inherit;
 }
 
+img {
+  max-width: 100%;
+}
+
+/* =========================================
+   LAYOUT
+========================================= */
+
 .container-main {
-  width: min(1180px, calc(100% - 64px));
+  width: min(var(--container), calc(100% - 80px));
   margin-inline: auto;
 }
 
-.eyebrow {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  color: var(--muted);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
-
-.eyebrow::before {
-  content: "";
-  width: 24px;
-  height: 1px;
-  background: var(--accent);
-}
-
 .section-spacing {
-  padding-block: 110px;
+  padding-block: 120px;
 }
 
 .accent-text {
   color: var(--accent);
 }
 
-.grid-lines {
-  background-image: linear-gradient(
-    to right,
-    rgba(255, 255, 255, 0.025) 1px,
-    transparent 1px
-  );
-  background-size: 80px 100%;
+/* =========================================
+   TYPOGRAPHY
+========================================= */
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  color: var(--muted);
+
+  font-size: 10px;
+  font-weight: 650;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+}
+
+.eyebrow::before {
+  content: "";
+
+  width: 25px;
+  height: 1px;
+
+  background: var(--accent);
 }
 
 .hero-title {
-  font-size: clamp(64px, 10.5vw, 138px);
-  line-height: 0.91;
-  letter-spacing: -0.085em;
-  font-weight: 650;
+  font-size: clamp(68px, 9.5vw, 128px);
+  line-height: 0.88;
+  letter-spacing: -0.09em;
+  font-weight: 750;
 }
 
 .outline-text {
   color: transparent;
-  -webkit-text-stroke: 1px rgba(243, 245, 248, 0.55);
+  -webkit-text-stroke: 1px var(--muted);
 }
 
-.project-card {
-  border: 1px solid var(--border);
-  background: var(--surface);
-  transition:
-    border-color 250ms ease,
-    transform 250ms ease;
-}
+/* =========================================
+   BACKGROUNDS
+========================================= */
 
-.project-card:hover {
-  border-color: rgba(57, 135, 255, 0.6);
-  transform: translateY(-4px);
-}
+.grid-lines {
+  background-image: linear-gradient(
+    to right,
+    var(--grid-line) 1px,
+    transparent 1px
+  );
 
-.nav-link {
-  color: var(--muted);
-  transition: color 200ms ease;
-}
-
-.nav-link:hover {
-  color: white;
+  background-size: 100px 100%;
 }
 
 .blue-line {
   height: 1px;
-  background: linear-gradient(90deg, var(--accent), rgba(57, 135, 255, 0));
+
+  background: linear-gradient(90deg, var(--accent), transparent 75%);
 }
 
-@media (max-width: 768px) {
-  .container-main {
-    width: min(100% - 36px, 1180px);
-  }
+/* Subtle ambient light for hero sections */
 
-  .section-spacing {
-    padding-block: 76px;
-  }
-
-  .hero-title {
-    font-size: clamp(58px, 14vw, 100px);
-  }
+.hero-glow {
+  position: relative;
+  isolation: isolate;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    scroll-behavior: auto !important;
-    transition-duration: 0.01ms !important;
-    animation-duration: 0.01ms !important;
-  }
+.hero-glow::before {
+  content: "";
+
+  position: absolute;
+  z-index: -1;
+
+  width: 480px;
+  height: 480px;
+
+  top: -120px;
+  left: 10%;
+
+  background: radial-gradient(
+    circle,
+    rgba(57, 135, 255, 0.075),
+    transparent 70%
+  );
+
+  pointer-events: none;
 }
 
-/* =====================================
-   THEME SYSTEM — PORTFOLIO REGIS
-===================================== */
+/* =========================================
+   PROJECT CARDS
+========================================= */
 
-:root {
-  color-scheme: dark;
+.project-card {
+  border: 1px solid var(--border);
+  background: var(--surface);
 
-  --background: #080a0f;
-  --surface: #0c0f15;
-  --surface-raised: #10141c;
-  --foreground: #f3f5f8;
-  --muted: #9299a5;
-  --border: rgba(255, 255, 255, 0.1);
-  --accent: #3987ff;
-  --grid-line: rgba(255, 255, 255, 0.025);
+  transition:
+    border-color 250ms ease,
+    transform 250ms ease,
+    background-color 250ms ease;
 }
 
-html.light {
-  color-scheme: light;
-
-  --background: #f5f6f8;
-  --surface: #ffffff;
-  --surface-raised: #edf0f5;
-  --foreground: #111827;
-  --muted: #626b79;
-  --border: rgba(17, 24, 39, 0.12);
-  --accent: #1765d1;
-  --grid-line: rgba(17, 24, 39, 0.035);
+.project-card:hover {
+  border-color: rgba(57, 135, 255, 0.55);
+  transform: translateY(-5px);
 }
 
-/* Base */
+/* =========================================
+   NAVIGATION
+========================================= */
 
-body {
-  background: var(--background);
+.nav-link {
+  color: var(--muted);
+
+  transition:
+    color 200ms ease,
+    opacity 200ms ease;
+}
+
+.nav-link:hover {
   color: var(--foreground);
 }
 
-/* Light theme: existing component backgrounds */
+/* =========================================
+   THEME COMPATIBILITY
+========================================= */
+
+header {
+  border-color: var(--border);
+}
+
+html.light header {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+html.light .outline-text {
+  -webkit-text-stroke: 1px rgba(17, 24, 39, 0.42);
+}
+
+html.light .project-card {
+  background-color: var(--surface);
+  border-color: var(--border);
+}
+
+html.light .project-card:hover {
+  border-color: var(--accent);
+}
+
+html.light .nav-link:hover {
+  color: var(--foreground);
+}
+
+/* Compatibility with existing Tailwind dark classes */
 
 html.light [class*="bg-[#080a0f]"],
 html.light [class*="bg-[#0c0f15]"] {
@@ -197,13 +267,6 @@ html.light [class*="bg-[#10141c]"],
 html.light [class*="bg-[#101827]"] {
   background-color: var(--surface) !important;
 }
-
-html.light header {
-  background-color: rgba(255, 255, 255, 0.88);
-  border-color: var(--border);
-}
-
-/* Typography */
 
 html.light [class*="text-white"],
 html.light [class*="text-gray-200"],
@@ -217,64 +280,9 @@ html.light [class*="text-gray-600"] {
   color: var(--muted) !important;
 }
 
-/* Borders */
-
 html.light [class*="border-white"] {
   border-color: var(--border) !important;
 }
-
-/* Navigation */
-
-html.light .nav-link {
-  color: var(--muted);
-}
-
-html.light .nav-link:hover {
-  color: var(--foreground);
-}
-
-/* Project cards */
-
-html.light .project-card {
-  background-color: var(--surface);
-  border-color: var(--border);
-}
-
-html.light .project-card:hover {
-  border-color: var(--accent);
-}
-
-/* Editorial grid */
-
-html.light .grid-lines {
-  background-image: linear-gradient(
-    to right,
-    var(--grid-line) 1px,
-    transparent 1px
-  );
-}
-
-/* Outline typography */
-
-html.light .outline-text {
-  -webkit-text-stroke: 1px rgba(17, 24, 39, 0.45);
-}
-
-/* Mobile menu */
-
-html.light header details nav {
-  background-color: var(--surface);
-  border-color: var(--border);
-}
-
-/* Selection */
-
-html.light ::selection {
-  background: var(--accent);
-  color: #ffffff;
-}
-
-/* Preserve white text on blue buttons */
 
 html.light [class*="bg-[#3987ff]"] {
   color: #ffffff !important;
@@ -282,4 +290,81 @@ html.light [class*="bg-[#3987ff]"] {
 
 html.light [class*="bg-[#3987ff]"] [class*="text-white"] {
   color: #ffffff !important;
+}
+
+/* =========================================
+   ANIMATIONS
+========================================= */
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 700ms ease both;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 768px) {
+  :root {
+    --header-height: 68px;
+  }
+
+  .container-main {
+    width: calc(100% - 36px);
+  }
+
+  .section-spacing {
+    padding-block: 82px;
+  }
+
+  .hero-title {
+    font-size: clamp(58px, 13.5vw, 96px);
+    letter-spacing: -0.085em;
+  }
+
+  .hero-glow::before {
+    width: 300px;
+    height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: clamp(52px, 13vw, 72px);
+  }
+
+  .section-spacing {
+    padding-block: 68px;
+  }
+
+  .eyebrow {
+    font-size: 9px;
+    letter-spacing: 0.12em;
+  }
+}
+
+/* =========================================
+   ACCESSIBILITY
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
