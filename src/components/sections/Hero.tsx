@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion, useReducedMotion } from "motion/react";
+import { motion, useReducedMotion, type Variants } from "motion/react";
 import { ArrowDown, ArrowUpRight, MapPin, Code2 } from "lucide-react";
 
 import {
@@ -57,17 +57,48 @@ const technologyGroups = [
 export default function Hero() {
   const shouldReduceMotion = useReducedMotion();
 
-  const reveal = {
+  const duration = shouldReduceMotion ? 0 : 0.7;
+
+  const ease = [0.22, 1, 0.36, 1] as const;
+
+  // Animation commune des éléments
+  const fadeUp: Variants = {
     hidden: {
       opacity: 0,
-      y: shouldReduceMotion ? 0 : 24,
+      y: shouldReduceMotion ? 0 : 30,
     },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: shouldReduceMotion ? 0 : 0.75,
-        ease: [0.22, 1, 0.36, 1] as const,
+        duration,
+        ease,
+      },
+    },
+  };
+
+  // Apparition progressive des enfants
+  const stagger: Variants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: shouldReduceMotion ? 0 : 0.13,
+      },
+    },
+  };
+
+  // Animation du nom
+  const titleReveal: Variants = {
+    hidden: {
+      opacity: 0,
+      y: shouldReduceMotion ? 0 : 55,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: shouldReduceMotion ? 0 : 1,
+        ease,
       },
     },
   };
@@ -78,65 +109,58 @@ export default function Hero() {
       <div className="pointer-events-none absolute inset-0 grid-lines opacity-60" />
 
       <div className="container-main relative">
-        {/* Top information */}
+        {/* Informations supérieures */}
         <motion.div
+          variants={stagger}
           initial="hidden"
           animate="visible"
-          variants={reveal}
           className="mb-20 flex flex-col justify-between gap-5 sm:flex-row sm:items-center"
         >
-          <div className="eyebrow">
+          <motion.div variants={fadeUp} className="eyebrow">
             <span>Backend Engineer</span>
             <span className="text-gray-700">/</span>
             <span>Open to opportunities</span>
-          </div>
+          </motion.div>
 
-          <div className="flex items-center gap-2 text-xs text-gray-500">
+          <motion.div
+            variants={fadeUp}
+            className="flex items-center gap-2 text-xs text-gray-500"
+          >
             <MapPin size={14} className="accent-text" />
             Bénin, Afrique de l'Ouest
-          </div>
+          </motion.div>
         </motion.div>
 
-        {/* Main title */}
+        {/* Présentation principale */}
         <div className="relative">
-          <motion.p
-            variants={reveal}
-            initial="hidden"
-            animate="visible"
-            className="mb-5 text-xs uppercase tracking-[0.25em] text-gray-500"
-          >
-            Bonjour, je suis
-          </motion.p>
+          <motion.div variants={stagger} initial="hidden" animate="visible">
+            <motion.p
+              variants={fadeUp}
+              className="mb-5 text-xs uppercase tracking-[0.25em] text-gray-500"
+            >
+              Bonjour, je suis
+            </motion.p>
 
-          <motion.h1
-            initial={{
-              opacity: 0,
-              y: shouldReduceMotion ? 0 : 45,
-            }}
-            animate={{
-              opacity: 1,
-              y: 0,
-            }}
-            transition={{
-              duration: shouldReduceMotion ? 0 : 1,
-              delay: 0.12,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-            className="hero-title"
-          >
-            RÉGIS
-            <br />
-            <span className="outline-text">TCHIBOZO.</span>
-          </motion.h1>
-
-          {/* Description */}
-          <div className="mt-12 grid gap-10 border-t border-[var(--border)] pt-9 md:grid-cols-2 md:gap-16">
-            <motion.div
+            <motion.h1
+              variants={titleReveal}
               initial="hidden"
               animate="visible"
-              variants={reveal}
-              transition={{ delay: 0.25 }}
+              className="hero-title"
             >
+              RÉGIS
+              <br />
+              <span className="outline-text">TCHIBOZO.</span>
+            </motion.h1>
+          </motion.div>
+
+          {/* Description */}
+          <motion.div
+            variants={stagger}
+            initial="hidden"
+            animate="visible"
+            className="mt-12 grid gap-10 border-t border-[var(--border)] pt-9 md:grid-cols-2 md:gap-16"
+          >
+            <motion.div variants={fadeUp}>
               <p className="max-w-xl text-2xl font-medium leading-relaxed tracking-tight text-gray-200 md:text-3xl">
                 Je transforme des idées en{" "}
                 <span className="accent-text">systèmes backend</span> fiables et
@@ -145,10 +169,7 @@ export default function Hero() {
             </motion.div>
 
             <motion.div
-              initial="hidden"
-              animate="visible"
-              variants={reveal}
-              transition={{ delay: 0.4 }}
+              variants={fadeUp}
               className="flex flex-col items-start justify-between gap-7"
             >
               <p className="max-w-lg text-sm leading-8 text-gray-400">
@@ -159,72 +180,106 @@ export default function Hero() {
               </p>
 
               <div className="flex flex-wrap gap-3">
-                <Link
-                  href="#projects"
-                  className="group inline-flex items-center gap-3 bg-[#3987ff] px-5 py-3.5 text-xs font-semibold text-white transition-all duration-300 hover:-translate-y-1 hover:bg-blue-600"
-                >
-                  Explorer mes projets
-                  <ArrowUpRight
-                    size={15}
-                    className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
-                  />
-                </Link>
+                <motion.div variants={fadeUp}>
+                  <Link
+                    href="#projects"
+                    className="group inline-flex items-center gap-3 bg-[#3987ff] px-5 py-3.5 text-xs font-semibold text-white transition-all duration-300 hover:-translate-y-1 hover:bg-blue-600"
+                  >
+                    Explorer mes projets
+                    <ArrowUpRight
+                      size={15}
+                      className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+                    />
+                  </Link>
+                </motion.div>
 
-                <Link
-                  href="#about"
-                  className="group inline-flex items-center gap-3 border border-[var(--border)] px-5 py-3.5 text-xs text-[var(--foreground)] transition-all duration-300 hover:border-[#3987ff] hover:text-[#3987ff]"
-                >
-                  En savoir plus
-                </Link>
+                <motion.div variants={fadeUp}>
+                  <Link
+                    href="#about"
+                    className="group inline-flex items-center gap-3 border border-[var(--border)] px-5 py-3.5 text-xs text-[var(--foreground)] transition-all duration-300 hover:border-[#3987ff] hover:text-[#3987ff]"
+                  >
+                    En savoir plus
+                  </Link>
+                </motion.div>
               </div>
             </motion.div>
-          </div>
+          </motion.div>
         </div>
 
-        {/* Technology stack */}
+        {/* Technologies */}
         <motion.div
+          variants={stagger}
           initial="hidden"
-          animate="visible"
-          variants={reveal}
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.15 }}
           className="mt-20 border-t border-[var(--border)] pt-8"
         >
-          <div className="mb-8 flex items-center gap-3">
+          <motion.div
+            variants={fadeUp}
+            className="mb-8 flex items-center gap-3"
+          >
             <Code2 size={16} className="accent-text" />
             <span className="text-[10px] uppercase tracking-[0.18em] text-gray-500">
               Technologies & outils
             </span>
-          </div>
+          </motion.div>
 
           <div className="grid gap-9 md:grid-cols-3">
-            {technologyGroups.map((group, groupIndex) => (
-              <div key={group.category}>
-                <p className="mb-5 text-xs font-semibold text-[var(--foreground)]">
+            {technologyGroups.map((group) => (
+              <motion.div key={group.category} variants={fadeUp}>
+                <motion.p
+                  variants={fadeUp}
+                  className="mb-5 text-xs font-semibold text-[var(--foreground)]"
+                >
                   {group.category}
-                </p>
+                </motion.p>
 
-                <div className="flex flex-wrap gap-3">
-                  {group.technologies.map(({ name, Icon }, index) => (
+                <motion.div
+                  variants={stagger}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.2 }}
+                  className="flex flex-wrap gap-3"
+                >
+                  {group.technologies.map(({ name, Icon }) => (
                     <motion.div
                       key={name}
-                      initial={{
-                        opacity: 0,
-                        y: shouldReduceMotion ? 0 : 12,
-                      }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{
-                        duration: shouldReduceMotion ? 0 : 0.4,
-                        delay: 0.15 + groupIndex * 0.12 + index * 0.055,
-                      }}
+                      variants={fadeUp}
+                      whileHover={
+                        shouldReduceMotion ? undefined : { y: -4, scale: 1.04 }
+                      }
                       title={name}
-                      className="group flex h-12 w-12 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--surface)] text-gray-400 transition-all duration-300 hover:-translate-y-1 hover:border-[#3987ff]/60 hover:bg-[#3987ff]/10 hover:text-[#3987ff] sm:h-14 sm:w-14"
+                      className="group inline-flex min-h-11 items-center gap-2 rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 py-2 text-gray-400 transition-colors duration-300 hover:border-[#3987ff]/60 hover:bg-[#3987ff]/10 hover:text-[#3987ff]"
                     >
-                      <Icon size={22} aria-hidden="true" />
+                      <Icon size={19} aria-hidden="true" className="shrink-0" />
+
+                      <span className="text-[11px] font-medium">{name}</span>
                     </motion.div>
                   ))}
-                </div>
-              </div>
+                </motion.div>
+              </motion.div>
             ))}
           </div>
+        </motion.div>
+
+        {/* Indication de défilement */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: shouldReduceMotion ? 0 : 1.4 }}
+          className="mt-16 flex justify-end"
+        >
+          <Link
+            href="#about"
+            aria-label="Défiler vers la section à propos"
+            className="group hidden items-center gap-3 text-xs text-gray-500 transition-colors hover:text-[#3987ff] md:flex"
+          >
+            <span className="uppercase tracking-widest">Scroll to explore</span>
+            <ArrowDown
+              size={17}
+              className="transition-transform duration-300 group-hover:translate-y-1"
+            />
+          </Link>
         </motion.div>
       </div>
     </section>
